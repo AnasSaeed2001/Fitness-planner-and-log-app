@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fitness_Planner_and_Log.MVVM.Views.AddDetails"
+             xmlns:viewmodel="clr-namespace:Fitness_Planner_and_Log.MVVM.ViewModels"
+             x:DataType="viewmodel:AddDetailsPage"
+             Title="Add Details"
+             BackgroundColor="Black">
+    <Grid RowDefinitions="Auto,Auto,*">
+        <Image Grid.Row="0"
+                   Source="{Binding CurrentWorkout.Image}"
+                   Aspect="AspectFit"
+                   HeightRequest="200"
+                   Margin="10"/>
+        <HorizontalStackLayout Grid.Row="1" Padding="10" Spacing="10" Margin="10" HorizontalOptions="Center">
+            <Button Text="Take Photo"
+                        Command="{Binding TakePhotoCommand}"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"/>
+
+            <Button Text="Save description"
+                        Command="{Binding SaveCommand}"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"/>
+        </HorizontalStackLayout>
+        
+        <Entry Grid.Row="2"
+                   Placeholder="Enter description"
+                   Text="{Binding CurrentWorkout.Description, Mode=TwoWay}" 
+                   Margin="10" 
+                   TextColor="White"/>
+        
+    </Grid>
+</ContentPage>

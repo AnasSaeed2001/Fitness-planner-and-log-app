@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Fitness_Planner_and_Log.MVVM.Views.MainPage"
+             Title="MainPage"
+             BackgroundColor="Black">
+    <Grid RowDefinitions="3*,2.5*" RowSpacing="100">
+        <VerticalStackLayout Padding="10" Spacing="10">
+            <Label Text="FITNESS PLANNER AND LOG"
+                   TextColor="White"
+                   FontSize="Title"
+                   FontAttributes="Bold"
+                   HorizontalOptions="CenterAndExpand"/>
+            <HorizontalStackLayout Padding="10">
+                <Label Text="Workout:" TextColor="White" Padding="5"/>
+                    <Entry Placeholder="Insert Workout here"   
+                       Text="{Binding CurrentWorkout.WorkoutName}"                   
+                       TextColor="White"/>
+                <Image Source="workout.svg"
+                       HeightRequest="45"
+                       WidthRequest="100"/>
+            </HorizontalStackLayout>
+            <HorizontalStackLayout Padding="10">
+                <Label Text="Weight (lb):" TextColor="White" Padding="5"/>
+                <Entry Text="{Binding CurrentWorkout.Weight}"
+                       TextColor="White"/>
+                <Image Source="weight.svg"
+                       HeightRequest="45"
+                       WidthRequest="100"/>
+            </HorizontalStackLayout>
+            <DatePicker
+                Date="{Binding SelectedDate}" 
+                Format="D"
+                TextColor="White"/>
+            <TimePicker
+                Time="{Binding SelectedTime}"
+                TextColor="White"/>
+            <Button Text="Add or Update"
+                        Command="{Binding AddOrUpdateCommand}"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"/>
+            <Label Text="LOG"
+                   TextColor="White"
+                   HorizontalTextAlignment="Center"
+                   FontSize="Title"/>
+        </VerticalStackLayout>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding WorkoutsInformation}"
+                        BackgroundColor="Black"
+                        SelectionMode="Single"
+                        SelectedItem="{Binding CurrentWorkout}">
+            <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <ScrollView>
+                    <SwipeView>
+                        <SwipeView.LeftItems>
+                            <SwipeItems>
+                                <SwipeItem IconImageSource="bin.svg"         
+                                        BackgroundColor="Red"
+                                        Invoked="deleteWorkout"/>
+                            </SwipeItems>
+                        </SwipeView.LeftItems>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                    <SwipeItem IconImageSource="plus_sign.svg"
+                                               BackgroundColor="Blue"
+                                               Invoked="goToAddDetalsPage"/>
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+                        <Frame BackgroundColor="DarkSlateGrey"  BorderColor="Black" Margin="5" HasShadow="True">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer />
+                            </Frame.GestureRecognizers>
+                            <Grid ColumnDefinitions="*,*,*,*" MinimumHeightRequest="50"
+                                  BackgroundColor="DarkSlateGrey">
+                                <Label Text="{ Binding WorkoutName }"
+                                            TextColor="White"
+                                            Grid.Column="0"/>
+                                <Label  
+                                            Text="{ Binding Weight }"
+                                            TextColor="White"
+                                            Grid.Column="1"/>
+                                <Label Text="{Binding Date, StringFormat='{0:d}'}"
+                                            TextColor="White"
+                                            Grid.Column="2"/>
+                                <Label Text="{Binding Time, StringFormat='{0:hh\\:mm tt}'}"
+                                            TextColor="White"
+                                            Grid.Column="3"/>
+                            </Grid>
+                        </Frame>
+                    </SwipeView>
+                </ScrollView>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+    </Grid>
+</ContentPage>
